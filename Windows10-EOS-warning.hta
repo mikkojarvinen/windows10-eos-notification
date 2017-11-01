@@ -1,0 +1,158 @@
+<head>
+<title>Company Name Software Installation</title>
+<HTA:APPLICATION
+  id="objUserPopUpWindows10"
+  applicationName="Company Name Software Installation"
+  caption="yes"
+  contextMenu="no"
+  icon="companyicon.ico"
+  innerBorder="no"
+  border="thin"
+  borderStyle="normal"
+  maximizeButton="no"
+  minimizeButton="no"
+  navigable="no"
+  scroll="no"
+  showInTaskBar="yes"
+  singleInstance="yes"
+  selection="yes"
+  sysMenu="yes"
+>
+<style>
+  * { font-family: Segoe UI, MS Sans Serif, Sans-Serif; color: black; font-size: 10pt; }
+  .Heading,H1 { font-size: 11pt; font-weight: bold; }
+</style>
+</head>
+
+<script language="VBScript">
+Dim strHTLM
+Dim strEOSDate
+Dim scaleFactor
+
+Set objShell = CreateObject("WScript.Shell")
+
+Sub Window_onLoad
+  arrCommands = Split(objUserPopUpWindows10.commandLine, chr(34)) ' Split the command line
+
+  If Ubound(arrCommands) < 4 Then ' No command line argument given
+    strEOSDate = "DD.MM.YYYY" ' Unknown EOS date
+  Else
+    strEOSDate = arrCommands(3) ' Get first real command line argument
+  End If
+  
+  EOSDateFI.InnerHTML = strEOSDate
+  arrDateDMY = Split(strEOSDate,".")
+  EOSDateEN.InnerHTML = arrDateDMY(1) & "/" & arrDateDMY(0) & "/" & arrDateDMY(2)
+
+' Get Windows display scale factor (screen scale percent)
+  scaleFactor = screen.logicalXDPI / 96
+
+  Dim intWinWidth, intWinHeight
+  intWinWidth = 600 * scaleFactor
+  intWinHeight = 560 * scaleFactor + scaleFactor * 10
+  window.resizeTo intWinWidth, intWinHeight
+  window.moveTo Window.screen.width/2 - intWinWidth/2, Window.screen.height/2 -intWinHeight/2
+End Sub
+
+Function scaleImage(x) ' Scale number with screen scale factor
+  scaleImage = x * scaleFactor
+End Function
+
+' Kill some of the keyboard shortcuts
+Sub Document_onKeyDown
+'  Const KEY_A = 65
+'  Const KEY_C = 67
+  Const KEY_F = 70
+  Const KEY_P = 80
+  Const KEY_NUMPLUS = 107
+  Const KEY_NUMMINUS = 109
+  Const KEY_PLUS = 187
+  Const KEY_MINUS = 189
+  Const KEY_F4 = 115
+  Const KEY_F5 = 116
+  Const KEY_ESC = 27
+
+  If window.event.ctrlKey And window.event.keycode=KEY_P Then ' Ctrl + P
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_F Then ' Ctrl + F
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_NUMPLUS Then ' Ctrl + Numpad Plus
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_NUMMINUS Then ' Ctrl + Numpad Minus
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_PLUS Then ' Ctrl + Plus
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_MINUS Then ' Ctrl + Minus
+    window.event.returnValue = FALSE
+  ElseIf window.event.altKey And window.event.keycode=KEY_F4 Then ' Alt + F4
+    window.event.returnValue = FALSE
+  ElseIf window.event.keycode=KEY_F5 Then ' F5
+    window.event.returnValue = FALSE
+  ElseIf window.event.ctrlKey And window.event.keycode=KEY_F5 Then ' Ctrl + F5
+    window.event.returnValue = FALSE
+  End If
+End Sub
+
+Sub SoftwareCenterButton
+  intReturnCode = objShell.Run("softwarecenter:", 1, False)
+End Sub
+</script>
+
+<script language="JavaScript">
+function stopWheel()  // disable mouse wheel
+{
+  return false;
+}
+document.onmousewheel=stopWheel;
+</script>
+
+<body>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="height: 100%;">
+  <tr>
+    <td colspan="2" align="left" valign="top" >
+      <div id="HeaderArea" >
+        <img id="headerImage1" src="header-companylogo.png" style="width:expression(scaleImage(240));height:expression(scaleImage(95))" align="left" >
+        <img id="headerImage2" src="header-windows10logo.png" style="width:expression(scaleImage(220));height:expression(scaleImage(95))" align="right" >
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td align=left valign=bottom width="80px">
+      <div id="LeftColumnArea" >
+      </div>
+    </td>
+    <td align="left" valign="top" height="100%">
+      <div id="ContentArea" >
+        <h1 style="Heading">Huomio!</h1>
+        <p>
+          T‰m‰n koneen Windows 10 on p‰ivitett‰v‰ uudempaan versioon.
+          Voit valita itsellesi parhaiten sopivan ajankohdan. P‰ivitys vie aikaa noin 30 minuutista aina kahteen tuntiin.
+          <strong><span id = "EOSDateFI">date</span></strong> j‰lkeen p‰ivitys k‰ynnistet‰‰n automaattisesti.
+        </p>
+        <p>
+          Aloita Windows 10:n p‰ivitys valitsemalla Software Centerist‰ 
+          &quot;Windows 10 Upgrade&quot; ja paina &quot;Install&quot;.
+          Tarkemmat ohjeet ovat <strong><a href="https://example.org/">Intranetissa</a></strong>.     </p>
+        <h1 style="Heading">Notice!</h1>
+        <p>
+          Windows 10 on this computer must be updated to a newer version.
+          You can decide a suitable time by yourself. Update will take from 30 minutes up to two hours.
+          After <strong><span id = "EOSDateEN">date</span></strong> the update will be started automatically.
+        </p>
+        <p>
+          Begin Windows 10 update in Software Center by selecting
+          "Windows 10 Upgrade" and click "Install".
+          More specific instructions are <strong><a href="https://example.org">on the Intranet</a></strong>.
+        </p>
+        <p>
+          <input type="button" value="Software Center" name="run_button" onClick="SoftwareCenterButton">
+        </p>
+        <p>
+        <hr size="1">
+          helpdesk@example.org &nbsp &nbsp +1 (2) 3456 7890
+        </p>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
