@@ -1,4 +1,4 @@
-# windows10-eos-notification
+ # windows10-eos-notification
 Show users a notification when a Windows 10 version is reaching it's EOS date and there is a Windows 10 feature update Task Sequence available in the Software Center.
 
 Launch ```win10-versioncheck.vbs``` using login script, scheduled task (good triggers: logon, user unlock) or other similar method.
@@ -8,7 +8,7 @@ Edit the script and ```Windows10-EOS-warning.hta``` file as needed.
 
 To be clear, this is just one way to make the clients run the script.
 
-It seems to be next to impossible to use group policy preferences to set up a scheduled task for a user but it is easy to do this with schtasks.exe and an .xml file. So the wild and crazy solution is to use group policy preferences to create an immediate scheduled task which will run the schtasks.exe with .xml to set up the initial notification scheduled task for the users.
+It seems to be next to impossible to use computer-targeted group policy preferences to set up a scheduled task for users but it is easy to do this with schtasks.exe and an .xml file. So the wild and crazy solution is to use group policy preferences to create an immediate scheduled task which will run the schtasks.exe with .xml to set up the initial notification scheduled task for the users.
 
 ### Immediate scheduled task creation using group policy preferences
 
