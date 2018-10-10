@@ -1,15 +1,16 @@
 ' Check Windows 10 version and launch update notice if needed
-' Author: Mikko Järvinen <mikko.tapio.jarvinen@gmail.com>
 ' 
 ' ProductName                       ReleaseId   Notice   End of support
 ' -------------------------------------------------------------------
-' Windows 10 Enterprise 2015 LTSB   1507        No       N/A
+' Windows 10 Enterprise 2015 LTSB   1507        No       14.10.2025
 ' Windows 10 Enterprise             1507        Yes      9.5.2017
-' Windows 10 Enterprise             1511        Yes      10.10.2017
-' Windows 10 Enterprise 2016 LTSB   1607        No       N/A
-' Windows 10 Enterprise             1607        No       ?
-' Windows 10 Enterprise             1703        No       ?
-'
+' Windows 10 Enterprise             1511        Yes      10.4.2018
+' Windows 10 Enterprise 2016 LTSB   1607        No       13.10.2026
+' Windows 10 Enterprise             1607        No       9.4.2019
+' Windows 10 Enterprise             1703        No       8.10.2019
+' Windows 10 Enterprise             1709        No       14.4.2020
+' Windows 10 Enterprise             1803        No       10.11.2020
+' Windows 10 Enterprise             1809        No
 '
 ' "Enterprise" can be also "Education"
 '
@@ -78,11 +79,20 @@ ElseIf Left(strProductName, 10) = "Windows 10" Then ' No LTSB version, test for 
       strCommandLineArgument = "9.5.2017"
     Case "1511"             ' 1511
       blnShowNotice = true
-      strCommandLineArgument = "10.10.2017"
+      strCommandLineArgument = "10.4.2018"
     Case "1607"             ' 1607
-      blnShowNotice = true
-      strCommandLineArgument = "1.4.2018"
+      blnShowNotice = false
+      strCommandLineArgument = "9.4.2019"
     Case "1703"             ' 1703
+      blnShowNotice = false
+      strCommandLineArgument = "8.10.2019"
+    Case "1709"             ' 1709
+      blnShowNotice = false
+      strCommandLineArgument = "14.4.2020"
+    Case "1803"             ' 1803
+      blnShowNotice = false
+      strCommandLineArgument = "10.11.2020"
+    Case "1809"             ' 1809
       blnShowNotice = false
       strCommandLineArgument = "DD.MM.YYYY"
     Case Else               ' Unknown ReleaseId
